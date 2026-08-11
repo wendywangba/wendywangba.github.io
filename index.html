@@ -39,7 +39,7 @@
   /* ---- top bar: dashboard chrome ---- */
   .topbar{
     background:var(--panel); border-bottom:2px solid var(--blue);
-    margin:0 -20px 26px; padding:22px 20px 20px;
+    margin:0 0 26px; padding:22px 20px 20px;
   }
   .topbar-inner{max-width:800px; margin:0 auto}
   .kicker{
@@ -133,6 +133,25 @@
 
   footer{margin-top:26px; font-size:12.5px; color:var(--ink3); line-height:1.7}
 
+  /* ---- hover layer ---- */
+  .bar{transition:opacity .12s}
+  .bar:hover,.bar:focus{opacity:.78; outline:none}
+  .bar:focus-visible{stroke:var(--ink); stroke-width:2}
+  #tip{
+    position:fixed; pointer-events:none; opacity:0; transform:translateY(3px);
+    transition:opacity .12s, transform .12s; z-index:50;
+    background:var(--panel); color:var(--ink); border:1px solid var(--line);
+    border-left:3px solid var(--blue); border-radius:3px;
+    padding:8px 11px; font-size:12.5px; line-height:1.5;
+    box-shadow:0 4px 14px -6px rgba(20,30,40,.35); max-width:250px;
+  }
+  #tip.on{opacity:1; transform:translateY(0)}
+  #tip b{display:block; font-size:13px; margin-bottom:2px}
+  #tip span{color:var(--ink2)}
+  @media (prefers-reduced-motion:reduce){
+    .bar,#tip{transition:none}
+  }
+
   @media (max-width:600px){
     .panel-hd,.panel-bd{padding-left:16px; padding-right:16px}
     h1{font-size:25px}
@@ -210,27 +229,27 @@
             <line x1="400" y1="6" x2="400" y2="150" stroke="var(--grid)"/>
             <g>
               <text class="c-lab" x="0" y="19">Agent A</text>
-              <rect x="70" y="9"   width="311" height="14" rx="3" fill="var(--blue)"/>
+              <rect class="bar" tabindex="0" role="img" data-t="Agent A" data-d="2,798 of 3,718 instalments cleared" data-o="On-time rate 44.7%" x="70" y="9"   width="311" height="14" rx="3" fill="var(--blue)"/>
               <text class="c-val" x="389" y="20">75.3%  ·  n = 3,718</text>
 
               <text class="c-lab" x="0" y="43">Agent B</text>
-              <rect x="70" y="33"  width="292" height="14" rx="3" fill="var(--blue)"/>
+              <rect class="bar" tabindex="0" role="img" data-t="Agent B" data-d="951 of 1,344 instalments cleared" data-o="On-time rate 42.6%" x="70" y="33"  width="292" height="14" rx="3" fill="var(--blue)"/>
               <text class="c-val" x="389" y="44">70.8%  ·  n = 1,344</text>
 
               <text class="c-lab" x="0" y="67">Agent C</text>
-              <rect x="70" y="57"  width="283" height="14" rx="3" fill="var(--blue)"/>
+              <rect class="bar" tabindex="0" role="img" data-t="Agent C" data-d="474 of 692 instalments cleared" data-o="On-time rate 52.9%" x="70" y="57"  width="283" height="14" rx="3" fill="var(--blue)"/>
               <text class="c-val" x="389" y="68">68.5%  ·  n = 692</text>
 
               <text class="c-lab" x="0" y="91">Agent D</text>
-              <rect x="70" y="81"  width="275" height="14" rx="3" fill="var(--blue)"/>
+              <rect class="bar" tabindex="0" role="img" data-t="Agent D" data-d="308 of 463 instalments cleared" data-o="On-time rate 43.8%" x="70" y="81"  width="275" height="14" rx="3" fill="var(--blue)"/>
               <text class="c-val" x="389" y="92">66.5%  ·  n = 463</text>
 
               <text class="c-lab" x="0" y="115" opacity=".6">Agent E</text>
-              <rect x="70" y="105" width="308" height="14" rx="3" fill="var(--muted-bar)"/>
+              <rect class="bar" tabindex="0" role="img" data-t="Agent E" data-d="59 of 79 instalments cleared" data-o="On-time rate 49.4%" x="70" y="105" width="308" height="14" rx="3" fill="var(--muted-bar)"/>
               <text class="c-val" x="389" y="116">74.7%  ·  n = 79</text>
 
               <text class="c-lab" x="0" y="139" opacity=".6">Agent F</text>
-              <rect x="70" y="129" width="316" height="14" rx="3" fill="var(--muted-bar)"/>
+              <rect class="bar" tabindex="0" role="img" data-t="Agent F" data-d="55 of 72 instalments cleared" data-o="On-time rate 34.7%" x="70" y="129" width="316" height="14" rx="3" fill="var(--muted-bar)"/>
               <text class="c-val" x="389" y="140">76.4%  ·  n = 72</text>
             </g>
             <line x1="70" y1="150" x2="400" y2="150" stroke="var(--line)"/>
@@ -299,15 +318,15 @@
             <line x1="380" y1="6" x2="380" y2="94" stroke="var(--grid)"/>
             <g>
               <text class="c-lab" x="0" y="19">Exposed — windward</text>
-              <rect x="150" y="9"  width="219" height="14" rx="3" fill="var(--blue)"/>
+              <rect class="bar" tabindex="0" role="img" data-t="Exposed — windward" data-d="Median 0.0025 · mean 0.0038" data-o="3,440 daily observations" x="150" y="9"  width="219" height="14" rx="3" fill="var(--blue)"/>
               <text class="c-val" x="377" y="20">0.0038  ·  n = 3,440</text>
 
               <text class="c-lab" x="0" y="43">Exposed — south</text>
-              <rect x="150" y="33" width="211" height="14" rx="3" fill="var(--blue)"/>
+              <rect class="bar" tabindex="0" role="img" data-t="Exposed — south" data-d="Median 0.0026 · mean 0.0037" data-o="3,020 daily observations" x="150" y="33" width="211" height="14" rx="3" fill="var(--blue)"/>
               <text class="c-val" x="377" y="44">0.0037  ·  n = 3,020</text>
 
               <text class="c-lab" x="0" y="67">Sheltered — leeward</text>
-              <rect x="150" y="57" width="93"  height="14" rx="3" fill="var(--muted-bar)"/>
+              <rect class="bar" tabindex="0" role="img" data-t="Sheltered — leeward" data-d="Median 0.0012 · mean 0.0016" data-o="2,687 daily observations" x="150" y="57" width="93"  height="14" rx="3" fill="var(--muted-bar)"/>
               <text class="c-val" x="377" y="68">0.0016  ·  n = 2,687</text>
             </g>
             <line x1="150" y1="94" x2="380" y2="94" stroke="var(--line)"/>
@@ -351,15 +370,15 @@
       </p>
       <div class="find">
         <strong>The design decision I care about is what it does when it doesn't know.</strong> An advising
-        bot that invents a prerequisite is worse than no bot — a student acts on it and takes the wrong
-        course. So the policy is strict grounding: if the answer isn't in the source documents it declines
-        rather than generating something plausible. I built the demo around that, including answering
-        Chinese-language questions from English-only sources, and surfacing prerequisites that were buried
-        in footnotes.
+        bot that invents a prerequisite is worse than no bot — a student acts on it, takes the wrong course,
+        and loses a term. So the policy is strict grounding: if the answer isn't in the source documents it
+        declines rather than generating something plausible. I built the demo around that failure mode
+        specifically — the questions I chose to show were the ones where the answer existed but was buried
+        in a spreadsheet footnote, and the ones where it didn't exist at all and the bot had to say so.
       </div>
       <div class="tags">
         <span>RAG product design</span><span>Grounding &amp; refusal policy</span>
-        <span>React / TypeScript</span><span>Bilingual UX</span>
+        <span>React / TypeScript</span><span>Demo design</span>
       </div>
     </div>
   </div>
@@ -375,5 +394,32 @@
   </footer>
 
 </div>
+<div id="tip" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  var tip=document.getElementById('tip');
+  function show(e){
+    var b=e.currentTarget;
+    tip.innerHTML='<b>'+b.dataset.t+'</b><span>'+b.dataset.d+'<br>'+b.dataset.o+'</span>';
+    tip.classList.add('on');
+    move(e);
+  }
+  function move(e){
+    var x=(e.clientX||0), y=(e.clientY||0);
+    if(!e.clientX){var r=e.currentTarget.getBoundingClientRect(); x=r.right; y=r.top;}
+    var w=tip.offsetWidth, h=tip.offsetHeight;
+    tip.style.left=Math.min(x+14, innerWidth-w-10)+'px';
+    tip.style.top=Math.max(8, y-h-10)+'px';
+  }
+  function hide(){ tip.classList.remove('on'); }
+  document.querySelectorAll('.bar').forEach(function(b){
+    b.addEventListener('pointerenter',show);
+    b.addEventListener('pointermove',move);
+    b.addEventListener('pointerleave',hide);
+    b.addEventListener('focus',show);
+    b.addEventListener('blur',hide);
+  });
+})();
+</script>
 </body>
 </html>
