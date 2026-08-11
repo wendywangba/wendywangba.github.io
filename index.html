@@ -1,131 +1,258 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wendy Wang — Data & Machine Learning</title>
-  <meta name="description" content="Wendy Wang — M.S. Business Analytics candidate with skills in data analytics, statistics, machine learning, and visualization." />
-  <style>
-    :root{
-      --bg:#fafafa; --fg:#111; --muted:#666; --card:#fff; --border:#e9e9e9; --accent:#4f46e5; --accent-weak:#eef2ff;
-    }
-    @media (prefers-color-scheme: dark){
-      :root{ --bg:#0b0b0c; --fg:#eaeaea; --muted:#a1a1aa; --card:#131316; --border:#242429; --accent:#8b7eff; --accent-weak:#181826; }
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0; padding:0; background:var(--bg); color:var(--fg); font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; line-height:1.6}
-    .wrap{max-width:960px; margin:0 auto; padding:56px 20px}
-    header{margin-bottom:28px}
-    h1{font-size:40px; line-height:1.2; margin:0 0 8px 0}
-    .sub{color:var(--muted); font-size:18px}
-    .actions{margin:20px 0 28px; display:flex; gap:12px; flex-wrap:wrap}
-    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--border); border-radius:12px; text-decoration:none; color:var(--fg); background:var(--card)}
-    .btn:hover{border-color:var(--accent); box-shadow:0 4px 18px rgba(79,70,229,.15)}
-    main{display:grid; grid-template-columns:1fr; gap:18px}
-    .grid{display:grid; gap:16px}
-    .grid.two{grid-template-columns:1fr;}
-    @media (min-width:860px){ .grid.two{grid-template-columns:1.1fr .9fr;} }
-    .card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px}
-    .card h3{margin:0 0 6px 0}
-    .muted{color:var(--muted)}
-    ul{margin:8px 0 0 18px}
-    li{margin:6px 0}
-    .list{display:grid; gap:12px}
-    .list .item{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px}
-    .item h4{margin:0 0 6px 0}
-    .skills{display:flex; flex-wrap:wrap; gap:8px}
-    .chip{border:1px solid var(--border); background:var(--card); padding:6px 10px; border-radius:10px; font-size:14px}
-    footer{margin-top:28px; color:var(--muted); font-size:14px}
-    a{color:var(--accent)}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wendy Wang · Data Analyst</title>
+<meta name="description" content="Data analyst — reverse-engineering undocumented schemas, and the numbers that look right until you check the sample size.">
+<style>
+  :root{
+    --bg:#fbfaf8; --fg:#1c1b19; --muted:#6b6862; --line:#e5e1da;
+    --accent:#8a5a2b; --card:#fff; --bar:#6f8fa8; --barlow:#c9d4dc;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#151412; --fg:#eceae6; --muted:#9b968d; --line:#2c2a26;
+           --accent:#d9a35f; --card:#1c1b19; --bar:#5b7d96; --barlow:#3a444b; }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16px/1.65 ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px; margin:0 auto; padding:72px 24px 96px}
+  h1{font-size:30px; line-height:1.2; margin:0 0 14px; letter-spacing:-.02em}
+  .lede{font-size:18px; color:var(--fg); margin:0 0 8px}
+  .sub{color:var(--muted); margin:0 0 28px; font-size:15px}
+  .links{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:56px}
+  .links a{
+    display:inline-block; padding:8px 15px; border:1px solid var(--line);
+    border-radius:999px; text-decoration:none; color:var(--fg); font-size:14.5px;
+    background:var(--card); transition:border-color .15s, color .15s;
+  }
+  .links a:hover{border-color:var(--accent); color:var(--accent)}
+  h2{
+    font-size:12.5px; text-transform:uppercase; letter-spacing:.11em;
+    color:var(--muted); font-weight:600; margin:0 0 20px;
+    padding-bottom:9px; border-bottom:1px solid var(--line);
+  }
+  .proj{margin-bottom:42px}
+  .proj h3{font-size:18px; margin:0 0 4px; letter-spacing:-.01em}
+  .proj h3 a{color:var(--fg); text-decoration:none; border-bottom:1.5px solid var(--accent); padding-bottom:1px}
+  .proj h3 a:hover{color:var(--accent)}
+  .meta{font-size:13.5px; color:var(--muted); margin:0 0 10px}
+  .proj p{margin:0 0 10px}
+  .find{
+    border-left:2.5px solid var(--accent); padding:2px 0 2px 14px;
+    margin:12px 0 10px; color:var(--fg);
+  }
+  .find strong{font-weight:600}
+  .tags{font-size:13px; color:var(--muted)}
+  .skills{font-size:15px; color:var(--muted); margin:0}
+  .skills b{color:var(--fg); font-weight:600}
+  figure{margin:18px 0 10px; padding:0}
+  figcaption{font-size:13px; color:var(--muted); margin-top:8px; line-height:1.55}
+  svg{max-width:100%; height:auto; display:block}
+  .chart-lab{font:12.5px ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; fill:var(--fg)}
+  .chart-n{font:11.5px ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; fill:var(--muted)}
+  .chart-ax{font:11px ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; fill:var(--muted)}
+  footer{
+    margin-top:64px; padding-top:22px; border-top:1px solid var(--line);
+    font-size:13.5px; color:var(--muted);
+  }
+  footer a{color:var(--muted)}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>Wendy Wang</h1>
-      <div class="sub">M.S. Business Analytics candidate · Data & Machine Learning · Santa Clara, CA</div>
-      <div class="actions">
-        <a class="btn" href="resume.pdf" target="_blank" rel="noopener">📄 CV / Resume</a>
-        <a class="btn" href="https://github.com/WenzhengWang08" target="_blank" rel="noopener">💻 GitHub</a>
-        <a class="btn" href="mailto:you@email.com">✉️ Email</a>
-      </div>
-    </header>
+<div class="wrap">
 
-    <main>
-      <section class="grid two" aria-labelledby="about">
-        <div class="card">
-          <h3 id="about">About</h3>
-          <p>
-            I’m a graduate student in Business Analytics with solid foundations in <strong>data analysis</strong>,
-            <strong>statistics</strong> and <strong>machine learning</strong>.  Comfortable moving from raw data to
-            reproducible pipelines, predictive models, and clear visualization for decision‑makers.
-          </p>
-          <p class="muted">
-            Coursework includes supervised / unsupervised ML (regression, decision‑trees, SVM, clustering, time‑series),
-            GLM & ANOVA, predictive modeling with LightGBM / XGBoost, and optimization with Gurobi.  Skilled in data‑viz
-            with ggplot2 / seaborn / Plotly and dashboarding in Tableau / Looker Studio.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Now</h3>
-          <ul>
-            <li><strong>Research Assistant (Economics Dept.)</strong> – building and maintaining clean pipelines for
-                monthly indicators derived from VIIRS night‑lights and related datasets (2013‑2025) to support economic
-                research.</li>
-            <li><strong>Blue Economy Project (Barbados)</strong> – designed and published an interactive <strong>Looker dashboard</strong>
-                using open ocean and satellite data to support policy‑makers in exploring sustainable ocean economy metrics.</li>
-          </ul>
-        </div>
-      </section>
+  <h1>Wendy Wang</h1>
 
-      <section aria-labelledby="skills">
-        <h3 id="skills">Skills</h3>
-        <div class="card">
-          <div class="skills">
-            <span class="chip">AI (basic concepts)</span>
-            <span class="chip">Analysis Skills</span>
-            <span class="chip">ANOVA / GLM</span>
-            <span class="chip">BigQuery</span>
-            <span class="chip">Clustering</span>
-            <span class="chip">Data Analysis / Analytics</span>
-            <span class="chip">Data Modeling</span>
-            <span class="chip">Data Science</span>
-            <span class="chip">Data Visualization</span>
-            <span class="chip">Decision Tree Analysis</span>
-            <span class="chip">dplyr / tidyr / readr</span>
-            <span class="chip">Generative AI (Basic)</span>
-            <span class="chip">ggplot2</span>
-            <span class="chip">Google Cloud Platform</span>
-            <span class="chip">LightGBM</span>
-            <span class="chip">Looker Studio</span>
-            <span class="chip">Machine Learning</span>
-            <span class="chip">Microsoft Excel</span>
-            <span class="chip">Multiple Regression Analysis</span>
-            <span class="chip">NumPy</span>
-            <span class="chip">Pandas</span>
-            <span class="chip">Photo Editing</span>
-            <span class="chip">Plotly</span>
-            <span class="chip">PostgreSQL / SQLite / SQL</span>
-            <span class="chip">Predictive Modeling Analysis</span>
-            <span class="chip">Python</span>
-            <span class="chip">R</span>
-            <span class="chip">Regression Analysis</span>
-            <span class="chip">Seaborn</span>
-            <span class="chip">Statistics</span>
-            <span class="chip">SVM</span>
-            <span class="chip">Tableau</span>
-            <span class="chip">Time‑Series Analysis</span>
-            <span class="chip">XGBoost</span>
-            <span class="chip">Gurobi (Optimization)</span>
-          </div>
-        </div>
-      </section>
+  <p class="lede">
+    I work on the part of analytics that happens <em>before</em> the chart — reverse-engineering
+    undocumented databases, checking whether a difference is real before recommending anything on it,
+    and turning messy operational data into decisions people can defend.
+  </p>
+  <p class="sub">
+    B.S. Statistics (Iowa State) · M.S. Business Analytics (Santa Clara) · San Jose, CA — open to relocation &amp; remote
+  </p>
 
-      <footer>
-        © <span id="y"></span> Wendy Wang · Built with GitHub Pages
-      </footer>
-    </main>
+  <div class="links">
+    <a href="Wendy_Wang_Resume.pdf">Résumé (PDF)</a>
+    <a href="https://github.com/WenzhengWang08">GitHub</a>
+    <a href="https://linkedin.com/in/wendywangba">LinkedIn</a>
+    <a href="mailto:wendywenzheng@gmail.com">Email</a>
   </div>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+  <h2>Selected work</h2>
+
+  <div class="proj">
+    <h3>Rebuilding a join path that didn't exist — off-grid solar nonprofit, Colombia</h3>
+    <p class="meta">49,207 records across 24 tables · PostgreSQL, Python (pandas, networkx), Tableau · Miller Center consulting engagement, 2nd place university-wide</p>
+    <p>
+      The question the client wanted answered was simple: <em>which of our field agents are actually
+      performing?</em> The obstacle was not analytical. It was that <strong>the payments table's
+      <code>user_id</code> column was empty for every single row</strong> — so there was no way to
+      connect a payment to the agent who had brought that customer in. The database also arrived with
+      no data dictionary and no ER diagram.
+    </p>
+    <p>
+      Reconstructing that link was the project. I wrote profiling scripts to generate the missing data
+      dictionary table by table, then inferred the foreign keys programmatically — scanning for
+      <code>*_id</code> columns shared between tables and treating an overlap of five or more values as
+      a candidate relationship, then rendering the result as an ER graph with networkx. Agent names were
+      spelled inconsistently across tables, so I normalised them with NFKD to strip accents and built a
+      canonical name map on top. In Tableau I duplicated the <code>users</code> and
+      <code>lead_generators</code> tables to complete a join path that the schema could not otherwise
+      express. Every relationship I inferred, I checked against row counts and sampled records before
+      building on it.
+    </p>
+
+    <figure>
+      <svg viewBox="0 0 620 232" role="img" aria-label="Payment success rate by field agent, with sample sizes">
+        <text class="chart-lab" x="0" y="14" style="font-weight:600">Payment success rate by field agent</text>
+
+        <!-- rows: label, bar (scale 0–80% → 0–400px), n -->
+        <g transform="translate(0,30)">
+          <text class="chart-lab" x="0" y="12">Agent A</text>
+          <rect x="72" y="2" width="376" height="13" fill="var(--bar)"/>
+          <text class="chart-n" x="456" y="12">75.3%  ·  n = 3,718</text>
+
+          <text class="chart-lab" x="0" y="38">Agent B</text>
+          <rect x="72" y="28" width="354" height="13" fill="var(--bar)"/>
+          <text class="chart-n" x="456" y="38">70.8%  ·  n = 1,344</text>
+
+          <text class="chart-lab" x="0" y="64">Agent C</text>
+          <rect x="72" y="54" width="342" height="13" fill="var(--bar)"/>
+          <text class="chart-n" x="456" y="64">68.5%  ·  n = 692</text>
+
+          <text class="chart-lab" x="0" y="90">Agent D</text>
+          <rect x="72" y="80" width="332" height="13" fill="var(--bar)"/>
+          <text class="chart-n" x="456" y="90">66.5%  ·  n = 463</text>
+
+          <text class="chart-lab" x="0" y="116" opacity=".62">Agent E</text>
+          <rect x="72" y="106" width="373" height="13" fill="var(--barlow)"/>
+          <text class="chart-n" x="456" y="116">74.7%  ·  n = 79</text>
+
+          <text class="chart-lab" x="0" y="142" opacity=".62">Agent F</text>
+          <rect x="72" y="132" width="382" height="13" fill="var(--barlow)"/>
+          <text class="chart-n" x="456" y="142">76.4%  ·  n = 72</text>
+
+          <line x1="72" y1="152" x2="472" y2="152" stroke="var(--line)"/>
+          <text class="chart-ax" x="72" y="166">0%</text>
+          <text class="chart-ax" x="272" y="166">40%</text>
+          <text class="chart-ax" x="452" y="166">80%</text>
+        </g>
+      </svg>
+      <figcaption>
+        Agent names replaced with letters; rates and volumes are the real figures.
+        The two nominally highest rates (E, F) rest on fewer than 80 instalments each and are shown
+        greyed for that reason — at that sample size the gap over Agent A is not distinguishable from noise.
+      </figcaption>
+    </figure>
+
+    <p class="find">
+      <strong>Once payments could be attributed, volume and quality turned out to be different axes.</strong>
+      The agent recovering the most money was not the one with the best payment success rate, and the
+      highest rate of all sat on a portfolio too small to mean anything. Ranking on amount recovered
+      therefore rewards the wrong behaviour. I recommended coaching targets be set on success and
+      on-time rates instead and delivered a reusable KPI framework; the judging panel asked me to
+      extend it into a single effectiveness index.
+    </p>
+    <p>
+      Two things I chose <em>not</em> to do are the parts I'd defend hardest. There were only about
+      fifteen agents and seven with meaningful transaction volume, so after trying exploratory
+      clustering I dropped it — the sample could not support a model, and a descriptive KPI framework
+      with explicit business rules was the honest answer. And the language field, which mattered because
+      the client serves Wayuunaiki-speaking communities, was populated for 3 of 932 customers. Rather
+      than analyse it anyway, we wrote "start collecting village-level language data" into the
+      recommendations.
+    </p>
+    <p class="tags">Foreign-key inference · name reconciliation (NFKD) · KPI definition · Tableau relationship modelling · knowing when not to model</p>
+  </div>
+
+  <div class="proj">
+    <h3>Twenty-seven years of satellite data, reduced to one comparison</h3>
+    <p class="meta">1997–2025 ocean-colour record · Python (xarray), BigQuery, Looker Studio · six-month practicum with the research team at X, the Moonshot Factory (Alphabet)</p>
+    <p>
+      I owned the water-clarity workstream on a four-person blue-economy research team. The source was
+      a public Copernicus Marine satellite archive — 10,000+ daily grids in NetCDF, most of them cloud
+      -obscured or off-target. The pipeline I built in xarray extracted three coastal sites from every
+      usable day, producing a <strong>9,147-observation analytical dataset</strong> spanning September
+      1997 to March 2025, delivered through BigQuery into an interactive dashboard.
+    </p>
+
+    <figure>
+      <svg viewBox="0 0 620 168" role="img" aria-label="Mean particulate backscatter by coastal exposure">
+        <text class="chart-lab" x="0" y="14" style="font-weight:600">Mean particulate backscatter (turbidity proxy), 1997–2025</text>
+
+        <g transform="translate(0,32)">
+          <text class="chart-lab" x="0" y="12">Exposed — windward</text>
+          <rect x="150" y="2" width="304" height="13" fill="var(--bar)"/>
+          <text class="chart-n" x="462" y="12">0.0038  ·  n = 3,440</text>
+
+          <text class="chart-lab" x="0" y="38">Exposed — south</text>
+          <rect x="150" y="28" width="294" height="13" fill="var(--bar)"/>
+          <text class="chart-n" x="462" y="38">0.0037  ·  n = 3,020</text>
+
+          <text class="chart-lab" x="0" y="64">Sheltered — leeward</text>
+          <rect x="150" y="54" width="130" height="13" fill="var(--barlow)"/>
+          <text class="chart-n" x="462" y="64">0.0016  ·  n = 2,687</text>
+
+          <line x1="150" y1="76" x2="454" y2="76" stroke="var(--line)"/>
+          <text class="chart-ax" x="150" y="90">0</text>
+          <text class="chart-ax" x="290" y="90">0.002</text>
+          <text class="chart-ax" x="430" y="90">0.004</text>
+        </g>
+      </svg>
+      <figcaption>
+        Sites labelled by coastal exposure rather than name. Higher backscatter means more suspended
+        particles, i.e. less clear water. The 2.3× gap holds on medians as well as means (2.2×), so it
+        does not depend on which statistic you pick — which is what made it safe to put in front of the client.
+      </figcaption>
+    </figure>
+
+    <p class="find">
+      <strong>Exposed coastline sat at 2.3× the turbidity of sheltered coastline, consistently, across
+      twenty-seven years.</strong> I presented this to senior public-sector stakeholders, and a senior
+      environmental official confirmed it matched what their field teams already knew — which is the
+      outcome I wanted: the satellite record independently reproduced operational knowledge that had
+      never been quantified, which is what makes the rest of the archive worth trusting.
+    </p>
+    <p class="tags">NetCDF / xarray · geospatial time series · pipeline automation · stakeholder communication</p>
+  </div>
+
+  <div class="proj">
+    <h3><a href="https://github.com/WenzhengWang08/scu-finance-advising-bot">A course-advising bot that refuses to guess</a></h3>
+    <p class="meta">RAG over a university department's advising documents · React + TypeScript front end, Python backend · 3-person team</p>
+    <p>
+      Students kept asking the same prerequisite questions because the answers were scattered across
+      checklists, flow charts and spreadsheet footnotes. We built a retrieval-augmented advising bot over
+      those documents. <strong>I owned the product design, the chat front end, and the answer policy;
+      my teammates built the retrieval pipeline.</strong>
+    </p>
+    <p class="find">
+      <strong>The design decision I care about is what it does when it doesn't know.</strong> An advising
+      bot that invents a prerequisite is worse than no bot — a student acts on it and takes the wrong
+      course. So the policy is strict grounding: if the answer isn't in the source documents it declines
+      rather than generating something plausible. I built the demo around that, including answering
+      Chinese-language questions from English-only sources, and surfacing prerequisites that were buried
+      in footnotes.
+    </p>
+    <p class="tags">RAG product design · grounding &amp; refusal policy · React/TypeScript · bilingual UX</p>
+  </div>
+
+  <h2>Tools</h2>
+  <p class="skills">
+    <b>Daily:</b> SQL · PostgreSQL · Python (pandas, scikit-learn, XGBoost, LightGBM) · Tableau · Excel<br>
+    <b>Also:</b> R · BigQuery · Looker Studio · Google Earth Engine · Git
+  </p>
+
+  <footer>
+    Permanently authorized to work in the U.S. — no sponsorship required.<br>
+    © 2026 Wendy Wang · Hosted on GitHub Pages
+  </footer>
+
+</div>
 </body>
 </html>
