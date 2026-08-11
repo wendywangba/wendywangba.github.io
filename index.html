@@ -7,88 +7,189 @@
 <meta name="description" content="Data analyst — reverse-engineering undocumented schemas, and the numbers that look right until you check the sample size.">
 <style>
   :root{
-    --bg:#fbfaf8; --fg:#1c1b19; --muted:#6b6862; --line:#e5e1da;
-    --accent:#8a5a2b; --card:#fff; --bar:#6f8fa8; --barlow:#c9d4dc;
+    --bg:#faf8f5; --bg2:#f2eee8;
+    --fg:#191817; --muted:#6f6b64; --faint:#96918a;
+    --line:#e6e0d7; --card:#fff;
+    --accent:#a3612c; --accent-soft:#f6ecdf;
+    --bar:#7b93a6; --barlow:#cdd7de;
+    --shadow:0 1px 2px rgba(30,25,18,.04), 0 8px 24px -14px rgba(30,25,18,.18);
   }
   @media (prefers-color-scheme: dark){
-    :root{ --bg:#151412; --fg:#eceae6; --muted:#9b968d; --line:#2c2a26;
-           --accent:#d9a35f; --card:#1c1b19; --bar:#5b7d96; --barlow:#3a444b; }
+    :root{
+      --bg:#141311; --bg2:#1b1a17;
+      --fg:#eeebe6; --muted:#a09a90; --faint:#7c766d;
+      --line:#2e2b26; --card:#1c1b18;
+      --accent:#e0a765; --accent-soft:#2a2118;
+      --bar:#5f7d93; --barlow:#39423a;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -14px rgba(0,0,0,.6);
+    }
   }
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{
     margin:0; background:var(--bg); color:var(--fg);
-    font:16px/1.65 ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font:16.5px/1.7 ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:680px; margin:0 auto; padding:72px 24px 96px}
-  h1{font-size:30px; line-height:1.2; margin:0 0 14px; letter-spacing:-.02em}
-  .lede{font-size:18px; color:var(--fg); margin:0 0 8px}
-  .sub{color:var(--muted); margin:0 0 28px; font-size:15px}
-  .links{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:56px}
+  .wrap{max-width:720px; margin:0 auto; padding:0 24px 110px}
+
+  /* ---------- hero ---------- */
+  header{padding:88px 0 8px}
+  .eyebrow{
+    font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent); font-weight:650; margin:0 0 16px;
+  }
+  h1{
+    font-size:clamp(34px,6vw,46px); line-height:1.05; margin:0 0 20px;
+    letter-spacing:-.03em; font-weight:700;
+  }
+  .lede{font-size:19.5px; line-height:1.6; margin:0 0 22px; max-width:38em}
+  .lede em{font-style:italic; color:var(--accent)}
+  .sub{color:var(--muted); margin:0 0 30px; font-size:14.5px}
+  .links{display:flex; flex-wrap:wrap; gap:9px}
   .links a{
-    display:inline-block; padding:8px 15px; border:1px solid var(--line);
-    border-radius:999px; text-decoration:none; color:var(--fg); font-size:14.5px;
-    background:var(--card); transition:border-color .15s, color .15s;
+    display:inline-flex; align-items:center; padding:9px 17px;
+    border:1px solid var(--line); border-radius:999px; text-decoration:none;
+    color:var(--fg); font-size:14.5px; font-weight:500; background:var(--card);
+    transition:transform .14s ease, border-color .14s, color .14s, box-shadow .14s;
   }
-  .links a:hover{border-color:var(--accent); color:var(--accent)}
+  .links a:hover{
+    border-color:var(--accent); color:var(--accent);
+    transform:translateY(-1px); box-shadow:var(--shadow);
+  }
+  .links a.primary{background:var(--fg); color:var(--bg); border-color:var(--fg)}
+  .links a.primary:hover{background:var(--accent); border-color:var(--accent); color:#fff}
+
+  .rule{height:1px; background:var(--line); margin:64px 0 0}
+
+  /* ---------- section head ---------- */
   h2{
-    font-size:12.5px; text-transform:uppercase; letter-spacing:.11em;
-    color:var(--muted); font-weight:600; margin:0 0 20px;
-    padding-bottom:9px; border-bottom:1px solid var(--line);
+    font-size:12px; text-transform:uppercase; letter-spacing:.16em;
+    color:var(--faint); font-weight:650; margin:54px 0 26px;
   }
-  .proj{margin-bottom:42px}
-  .proj h3{font-size:18px; margin:0 0 4px; letter-spacing:-.01em}
-  .proj h3 a{color:var(--fg); text-decoration:none; border-bottom:1.5px solid var(--accent); padding-bottom:1px}
+
+  /* ---------- project card ---------- */
+  .proj{
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:32px 34px 28px; margin-bottom:26px; box-shadow:var(--shadow);
+  }
+  .proj h3{
+    font-size:22px; line-height:1.28; margin:0 0 10px;
+    letter-spacing:-.02em; font-weight:660;
+  }
+  .proj h3 a{
+    color:var(--fg); text-decoration:none;
+    background-image:linear-gradient(var(--accent),var(--accent));
+    background-size:100% 1.5px; background-repeat:no-repeat; background-position:0 100%;
+    padding-bottom:2px;
+  }
   .proj h3 a:hover{color:var(--accent)}
-  .meta{font-size:13.5px; color:var(--muted); margin:0 0 10px}
-  .proj p{margin:0 0 10px}
-  .find{
-    border-left:2.5px solid var(--accent); padding:2px 0 2px 14px;
-    margin:12px 0 10px; color:var(--fg);
+  .meta{font-size:13.5px; color:var(--muted); margin:0 0 20px; line-height:1.55}
+  .proj p{margin:0 0 14px}
+  .proj code{
+    font:13.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+    background:var(--bg2); padding:2px 5px; border-radius:4px;
   }
-  .find strong{font-weight:600}
-  .tags{font-size:13px; color:var(--muted)}
-  .skills{font-size:15px; color:var(--muted); margin:0}
-  .skills b{color:var(--fg); font-weight:600}
-  figure{margin:18px 0 10px; padding:0}
-  figcaption{font-size:13px; color:var(--muted); margin-top:8px; line-height:1.55}
-  svg{max-width:100%; height:auto; display:block}
+
+  /* ---------- stat strip ---------- */
+  .stats{
+    display:flex; flex-wrap:wrap; gap:10px; margin:0 0 22px;
+  }
+  .stat{
+    flex:1 1 128px; background:var(--bg2); border-radius:10px;
+    padding:12px 14px; min-width:118px;
+  }
+  .stat b{display:block; font-size:20px; letter-spacing:-.02em; line-height:1.2}
+  .stat span{display:block; font-size:11.5px; color:var(--muted); margin-top:3px;
+    letter-spacing:.03em; text-transform:uppercase}
+
+  /* ---------- finding callout ---------- */
+  .find{
+    background:var(--accent-soft); border-left:3px solid var(--accent);
+    border-radius:0 10px 10px 0; padding:16px 20px; margin:20px 0 16px;
+  }
+  .find strong{font-weight:660}
+
+  /* ---------- figures ---------- */
+  figure{margin:22px 0 16px; padding:0}
+  figure img{
+    display:block; width:100%; height:auto; border:1px solid var(--line);
+    border-radius:10px; background:#fff; padding:10px;
+  }
+  figcaption{font-size:13px; color:var(--muted); margin-top:10px; line-height:1.6}
+  figcaption code{font-size:12.5px}
+  .chartbox{
+    background:var(--bg2); border-radius:10px; padding:18px 16px 12px;
+  }
+  svg.chart{max-width:100%; height:auto; display:block}
   .chart-lab{font:12.5px ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; fill:var(--fg)}
   .chart-n{font:11.5px ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; fill:var(--muted)}
-  .chart-ax{font:11px ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; fill:var(--muted)}
-  footer{
-    margin-top:64px; padding-top:22px; border-top:1px solid var(--line);
-    font-size:13.5px; color:var(--muted);
+  .chart-ax{font:11px ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; fill:var(--faint)}
+
+  /* ---------- tags ---------- */
+  .tags{display:flex; flex-wrap:wrap; gap:7px; margin-top:18px}
+  .tags span{
+    font-size:12.5px; color:var(--muted); background:var(--bg2);
+    border-radius:999px; padding:4px 11px;
   }
-  footer a{color:var(--muted)}
+
+  /* ---------- tools ---------- */
+  .tools{
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:26px 32px; box-shadow:var(--shadow);
+  }
+  .tools p{margin:0 0 10px; font-size:15.5px; color:var(--muted)}
+  .tools p:last-child{margin:0}
+  .tools b{color:var(--fg); font-weight:650; display:inline-block; min-width:62px}
+
+  footer{
+    margin-top:56px; padding-top:24px; border-top:1px solid var(--line);
+    font-size:13.5px; color:var(--faint); line-height:1.7;
+  }
+
+  @media (max-width:560px){
+    .proj{padding:24px 20px 20px; border-radius:13px}
+    .wrap{padding:0 16px 80px}
+    header{padding:56px 0 8px}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <h1>Wendy Wang</h1>
-
-  <p class="lede">
-    I work on the part of analytics that happens <em>before</em> the chart — reverse-engineering
-    undocumented databases, checking whether a difference is real before recommending anything on it,
-    and turning messy operational data into decisions people can defend.
-  </p>
-  <p class="sub">
-    B.S. Statistics (Iowa State) · M.S. Business Analytics (Santa Clara) · San Jose, CA — open to relocation &amp; remote
-  </p>
-
-  <div class="links">
-    <a href="Wendy_Wang_Resume.pdf">Résumé (PDF)</a>
-    <a href="https://github.com/WenzhengWang08">GitHub</a>
-    <a href="https://linkedin.com/in/wendywangba">LinkedIn</a>
-    <a href="mailto:wendywenzheng@gmail.com">Email</a>
-  </div>
+  <header>
+    <p class="eyebrow">Data Analyst · San Jose, CA</p>
+    <h1>Wendy Wang</h1>
+    <p class="lede">
+      I work on the part of analytics that happens <em>before</em> the chart — reverse-engineering
+      undocumented databases, checking whether a difference is real before recommending anything on it,
+      and turning messy operational data into decisions people can defend.
+    </p>
+    <p class="sub">
+      B.S. Statistics (Iowa State) · M.S. Business Analytics (Santa Clara) · open to relocation &amp; remote
+    </p>
+    <div class="links">
+      <a class="primary" href="Wendy_Wang_Resume.pdf">Résumé (PDF)</a>
+      <a href="https://github.com/wendywangba">GitHub</a>
+      <a href="https://linkedin.com/in/wendywangba">LinkedIn</a>
+      <a href="mailto:wendywenzheng@gmail.com">Email</a>
+    </div>
+    <div class="rule"></div>
+  </header>
 
   <h2>Selected work</h2>
 
+  <!-- ============ 1 ============ -->
   <div class="proj">
-    <h3>Rebuilding a join path that didn't exist — off-grid solar nonprofit, Colombia</h3>
-    <p class="meta">49,207 records across 24 tables · PostgreSQL, Python (pandas, networkx), Tableau · Miller Center consulting engagement, 2nd place university-wide</p>
+    <h3>Rebuilding a join path that didn't exist</h3>
+    <p class="meta">Off-grid solar nonprofit, Colombia · PostgreSQL, Python (pandas, networkx), Tableau<br>Miller Center consulting engagement — 2nd place university-wide</p>
+
+    <div class="stats">
+      <div class="stat"><b>49,207</b><span>records</span></div>
+      <div class="stat"><b>24</b><span>tables, no docs</span></div>
+      <div class="stat"><b>1 week</b><span>raw db → final pitch</span></div>
+    </div>
+
     <p>
       The question the client wanted answered was simple: <em>which of our field agents are actually
       performing?</em> The obstacle was not analytical. It was that <strong>the payments table's
@@ -109,56 +210,66 @@
     </p>
 
     <figure>
-      <svg viewBox="0 0 620 232" role="img" aria-label="Payment success rate by field agent, with sample sizes">
-        <text class="chart-lab" x="0" y="14" style="font-weight:600">Payment success rate by field agent</text>
-
-        <!-- rows: label, bar (scale 0–80% → 0–400px), n -->
-        <g transform="translate(0,30)">
-          <text class="chart-lab" x="0" y="12">Agent A</text>
-          <rect x="72" y="2" width="376" height="13" fill="var(--bar)"/>
-          <text class="chart-n" x="456" y="12">75.3%  ·  n = 3,718</text>
-
-          <text class="chart-lab" x="0" y="38">Agent B</text>
-          <rect x="72" y="28" width="354" height="13" fill="var(--bar)"/>
-          <text class="chart-n" x="456" y="38">70.8%  ·  n = 1,344</text>
-
-          <text class="chart-lab" x="0" y="64">Agent C</text>
-          <rect x="72" y="54" width="342" height="13" fill="var(--bar)"/>
-          <text class="chart-n" x="456" y="64">68.5%  ·  n = 692</text>
-
-          <text class="chart-lab" x="0" y="90">Agent D</text>
-          <rect x="72" y="80" width="332" height="13" fill="var(--bar)"/>
-          <text class="chart-n" x="456" y="90">66.5%  ·  n = 463</text>
-
-          <text class="chart-lab" x="0" y="116" opacity=".62">Agent E</text>
-          <rect x="72" y="106" width="373" height="13" fill="var(--barlow)"/>
-          <text class="chart-n" x="456" y="116">74.7%  ·  n = 79</text>
-
-          <text class="chart-lab" x="0" y="142" opacity=".62">Agent F</text>
-          <rect x="72" y="132" width="382" height="13" fill="var(--barlow)"/>
-          <text class="chart-n" x="456" y="142">76.4%  ·  n = 72</text>
-
-          <line x1="72" y1="152" x2="472" y2="152" stroke="var(--line)"/>
-          <text class="chart-ax" x="72" y="166">0%</text>
-          <text class="chart-ax" x="272" y="166">40%</text>
-          <text class="chart-ax" x="452" y="166">80%</text>
-        </g>
-      </svg>
+      <img src="er-diagram.png" alt="Entity-relationship diagram reconstructed from the undocumented database: clients at the root, branching through contracts, leads and payments to 21 related tables">
       <figcaption>
-        Agent names replaced with letters; rates and volumes are the real figures.
-        The two nominally highest rates (E, F) rest on fewer than 80 instalments each and are shown
-        greyed for that reason — at that sample size the gap over Agent A is not distinguishable from noise.
+        The schema as reconstructed — none of this was supplied. The path that mattered runs
+        <code>payments → leads → lead_generators</code>: rebuilding it is what made agent-level
+        analysis possible at all.
       </figcaption>
     </figure>
 
-    <p class="find">
+    <figure>
+      <div class="chartbox">
+        <svg class="chart" viewBox="0 0 600 190" role="img" aria-label="Payment success rate by field agent, with sample sizes">
+          <text class="chart-lab" x="0" y="12" style="font-weight:650">Payment success rate by field agent</text>
+          <g transform="translate(0,26)">
+            <text class="chart-lab" x="0" y="12">Agent A</text>
+            <rect x="66" y="2" width="338" height="12" rx="2" fill="var(--bar)"/>
+            <text class="chart-n" x="412" y="12">75.3%  ·  n = 3,718</text>
+
+            <text class="chart-lab" x="0" y="36">Agent B</text>
+            <rect x="66" y="26" width="318" height="12" rx="2" fill="var(--bar)"/>
+            <text class="chart-n" x="412" y="36">70.8%  ·  n = 1,344</text>
+
+            <text class="chart-lab" x="0" y="60">Agent C</text>
+            <rect x="66" y="50" width="308" height="12" rx="2" fill="var(--bar)"/>
+            <text class="chart-n" x="412" y="60">68.5%  ·  n = 692</text>
+
+            <text class="chart-lab" x="0" y="84">Agent D</text>
+            <rect x="66" y="74" width="299" height="12" rx="2" fill="var(--bar)"/>
+            <text class="chart-n" x="412" y="84">66.5%  ·  n = 463</text>
+
+            <text class="chart-lab" x="0" y="108" opacity=".55">Agent E</text>
+            <rect x="66" y="98" width="336" height="12" rx="2" fill="var(--barlow)"/>
+            <text class="chart-n" x="412" y="108">74.7%  ·  n = 79</text>
+
+            <text class="chart-lab" x="0" y="132" opacity=".55">Agent F</text>
+            <rect x="66" y="122" width="344" height="12" rx="2" fill="var(--barlow)"/>
+            <text class="chart-n" x="412" y="132">76.4%  ·  n = 72</text>
+
+            <line x1="66" y1="142" x2="416" y2="142" stroke="var(--line)"/>
+            <text class="chart-ax" x="66" y="156">0%</text>
+            <text class="chart-ax" x="232" y="156">40%</text>
+            <text class="chart-ax" x="396" y="156">80%</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption>
+        Agent names replaced with letters; rates and volumes are the real figures. The two nominally
+        highest rates (E, F) rest on fewer than 80 instalments each and are greyed for that reason —
+        at that sample size the gap over Agent A is not distinguishable from noise.
+      </figcaption>
+    </figure>
+
+    <div class="find">
       <strong>Once payments could be attributed, volume and quality turned out to be different axes.</strong>
       The agent recovering the most money was not the one with the best payment success rate, and the
       highest rate of all sat on a portfolio too small to mean anything. Ranking on amount recovered
       therefore rewards the wrong behaviour. I recommended coaching targets be set on success and
       on-time rates instead and delivered a reusable KPI framework; the judging panel asked me to
       extend it into a single effectiveness index.
-    </p>
+    </div>
+
     <p>
       Two things I chose <em>not</em> to do are the parts I'd defend hardest. There were only about
       fifteen agents and seven with meaningful transaction volume, so after trying exploratory
@@ -168,43 +279,56 @@
       than analyse it anyway, we wrote "start collecting village-level language data" into the
       recommendations.
     </p>
-    <p class="tags">Foreign-key inference · name reconciliation (NFKD) · KPI definition · Tableau relationship modelling · knowing when not to model</p>
+
+    <div class="tags">
+      <span>Foreign-key inference</span><span>Name reconciliation (NFKD)</span>
+      <span>KPI definition</span><span>Tableau relationship modelling</span>
+      <span>Knowing when not to model</span>
+    </div>
   </div>
 
+  <!-- ============ 2 ============ -->
   <div class="proj">
     <h3>Twenty-seven years of satellite data, reduced to one comparison</h3>
-    <p class="meta">1997–2025 ocean-colour record · Python (xarray), BigQuery, Looker Studio · six-month practicum with the research team at X, the Moonshot Factory (Alphabet)</p>
+    <p class="meta">Six-month practicum with the research team at X, the Moonshot Factory (Alphabet)<br>Python (xarray), BigQuery, Looker Studio</p>
+
+    <div class="stats">
+      <div class="stat"><b>1997–2025</b><span>record length</span></div>
+      <div class="stat"><b>10,000+</b><span>daily NetCDF grids</span></div>
+      <div class="stat"><b>9,147</b><span>usable observations</span></div>
+    </div>
+
     <p>
       I owned the water-clarity workstream on a four-person blue-economy research team. The source was
-      a public Copernicus Marine satellite archive — 10,000+ daily grids in NetCDF, most of them cloud
-      -obscured or off-target. The pipeline I built in xarray extracted three coastal sites from every
-      usable day, producing a <strong>9,147-observation analytical dataset</strong> spanning September
-      1997 to March 2025, delivered through BigQuery into an interactive dashboard.
+      a public Copernicus Marine satellite archive — most days cloud-obscured or off-target. The
+      pipeline I built in xarray extracted three coastal sites from every usable day, producing the
+      analytical dataset behind the team's dashboard, delivered through BigQuery.
     </p>
 
     <figure>
-      <svg viewBox="0 0 620 168" role="img" aria-label="Mean particulate backscatter by coastal exposure">
-        <text class="chart-lab" x="0" y="14" style="font-weight:600">Mean particulate backscatter (turbidity proxy), 1997–2025</text>
+      <div class="chartbox">
+        <svg class="chart" viewBox="0 0 600 140" role="img" aria-label="Mean particulate backscatter by coastal exposure">
+          <text class="chart-lab" x="0" y="12" style="font-weight:650">Mean particulate backscatter (turbidity proxy), 1997–2025</text>
+          <g transform="translate(0,30)">
+            <text class="chart-lab" x="0" y="12">Exposed — windward</text>
+            <rect x="146" y="2" width="266" height="12" rx="2" fill="var(--bar)"/>
+            <text class="chart-n" x="420" y="12">0.0038  ·  n = 3,440</text>
 
-        <g transform="translate(0,32)">
-          <text class="chart-lab" x="0" y="12">Exposed — windward</text>
-          <rect x="150" y="2" width="304" height="13" fill="var(--bar)"/>
-          <text class="chart-n" x="462" y="12">0.0038  ·  n = 3,440</text>
+            <text class="chart-lab" x="0" y="36">Exposed — south</text>
+            <rect x="146" y="26" width="257" height="12" rx="2" fill="var(--bar)"/>
+            <text class="chart-n" x="420" y="36">0.0037  ·  n = 3,020</text>
 
-          <text class="chart-lab" x="0" y="38">Exposed — south</text>
-          <rect x="150" y="28" width="294" height="13" fill="var(--bar)"/>
-          <text class="chart-n" x="462" y="38">0.0037  ·  n = 3,020</text>
+            <text class="chart-lab" x="0" y="60">Sheltered — leeward</text>
+            <rect x="146" y="50" width="113" height="12" rx="2" fill="var(--barlow)"/>
+            <text class="chart-n" x="420" y="60">0.0016  ·  n = 2,687</text>
 
-          <text class="chart-lab" x="0" y="64">Sheltered — leeward</text>
-          <rect x="150" y="54" width="130" height="13" fill="var(--barlow)"/>
-          <text class="chart-n" x="462" y="64">0.0016  ·  n = 2,687</text>
-
-          <line x1="150" y1="76" x2="454" y2="76" stroke="var(--line)"/>
-          <text class="chart-ax" x="150" y="90">0</text>
-          <text class="chart-ax" x="290" y="90">0.002</text>
-          <text class="chart-ax" x="430" y="90">0.004</text>
-        </g>
-      </svg>
+            <line x1="146" y1="70" x2="412" y2="70" stroke="var(--line)"/>
+            <text class="chart-ax" x="146" y="84">0</text>
+            <text class="chart-ax" x="262" y="84">0.002</text>
+            <text class="chart-ax" x="386" y="84">0.004</text>
+          </g>
+        </svg>
+      </div>
       <figcaption>
         Sites labelled by coastal exposure rather than name. Higher backscatter means more suspended
         particles, i.e. less clear water. The 2.3× gap holds on medians as well as means (2.2×), so it
@@ -212,45 +336,56 @@
       </figcaption>
     </figure>
 
-    <p class="find">
+    <div class="find">
       <strong>Exposed coastline sat at 2.3× the turbidity of sheltered coastline, consistently, across
       twenty-seven years.</strong> I presented this to senior public-sector stakeholders, and a senior
       environmental official confirmed it matched what their field teams already knew — which is the
       outcome I wanted: the satellite record independently reproduced operational knowledge that had
       never been quantified, which is what makes the rest of the archive worth trusting.
-    </p>
-    <p class="tags">NetCDF / xarray · geospatial time series · pipeline automation · stakeholder communication</p>
+    </div>
+
+    <div class="tags">
+      <span>NetCDF / xarray</span><span>Geospatial time series</span>
+      <span>Pipeline automation</span><span>Stakeholder communication</span>
+    </div>
   </div>
 
+  <!-- ============ 3 ============ -->
   <div class="proj">
-    <h3><a href="https://github.com/WenzhengWang08/scu-finance-advising-bot">A course-advising bot that refuses to guess</a></h3>
-    <p class="meta">RAG over a university department's advising documents · React + TypeScript front end, Python backend · 3-person team</p>
+    <h3><a href="https://github.com/wendywangba/scu-finance-advising-bot">A course-advising bot that refuses to guess</a></h3>
+    <p class="meta">RAG over a university department's advising documents · 3-person team<br>React + TypeScript front end, Python backend</p>
+
     <p>
       Students kept asking the same prerequisite questions because the answers were scattered across
       checklists, flow charts and spreadsheet footnotes. We built a retrieval-augmented advising bot over
       those documents. <strong>I owned the product design, the chat front end, and the answer policy;
       my teammates built the retrieval pipeline.</strong>
     </p>
-    <p class="find">
+
+    <div class="find">
       <strong>The design decision I care about is what it does when it doesn't know.</strong> An advising
       bot that invents a prerequisite is worse than no bot — a student acts on it and takes the wrong
       course. So the policy is strict grounding: if the answer isn't in the source documents it declines
       rather than generating something plausible. I built the demo around that, including answering
       Chinese-language questions from English-only sources, and surfacing prerequisites that were buried
       in footnotes.
-    </p>
-    <p class="tags">RAG product design · grounding &amp; refusal policy · React/TypeScript · bilingual UX</p>
+    </div>
+
+    <div class="tags">
+      <span>RAG product design</span><span>Grounding &amp; refusal policy</span>
+      <span>React / TypeScript</span><span>Bilingual UX</span>
+    </div>
   </div>
 
   <h2>Tools</h2>
-  <p class="skills">
-    <b>Daily:</b> SQL · PostgreSQL · Python (pandas, scikit-learn, XGBoost, LightGBM) · Tableau · Excel<br>
-    <b>Also:</b> R · BigQuery · Looker Studio · Google Earth Engine · Git
-  </p>
+  <div class="tools">
+    <p><b>Daily</b> SQL · PostgreSQL · Python (pandas, scikit-learn, XGBoost, LightGBM) · Tableau · Excel</p>
+    <p><b>Also</b> R · BigQuery · Looker Studio · Google Earth Engine · Git</p>
+  </div>
 
   <footer>
     Permanently authorized to work in the U.S. — no sponsorship required.<br>
-    © 2026 Wendy Wang · Hosted on GitHub Pages
+    © 2026 Wendy Wang
   </footer>
 
 </div>
